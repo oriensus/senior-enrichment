@@ -1,5 +1,6 @@
 'use strict';
 
+const Sequelize = require("sequelize");
 const db = require('../index');
 
 // Require all the models
@@ -9,4 +10,20 @@ const db = require('../index');
 
 // This is also probably a good place for you to set up your associations
 
-module.exports = db
+const Campus = db.define('campus', {
+	campusName: { type: Sequelize.STRING, allowNull: false, unique: true }
+});
+
+const Student = db.define('student', {
+	studentName: { type: Sequelize.STRING, allowNull: false},
+	campusId: {type: Sequelize.INTEGER, allowNull: false}
+});
+
+
+Student.belongsTo(Campus);
+
+// Campus.create({ campusName: "Titan" });
+// Campus.create( { campusName: "Europa" } );
+//Student.create( {studentName: "Han", campusId: 1} )
+
+module.exports = {db, Campus, Student}
