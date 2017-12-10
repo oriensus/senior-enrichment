@@ -45,9 +45,17 @@ export default class Students extends Component {
             });
 
         return (
-            <ul>
-                {students}
-            </ul>
+            <div>
+                <ul>
+                    {students}
+                </ul>
+                <div>
+                    <button onClick={ () => { 
+                            //window.location.assign('/addstudents') 
+                            this.props.history.push('/addstudents')
+                        } } >Add Student</button>
+                </div>
+            </div>
         )
     }
 }

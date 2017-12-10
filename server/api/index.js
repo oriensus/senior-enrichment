@@ -34,8 +34,22 @@ apiRouter.get('cu', (req, res, next) => {
 	// Campus.create( { campusName: "Europa" } );
 	Student.create( {studentName: "Han", campusId: 1} )
 	Student.create( {studentName: "Enid", campusId: 2} )
+	Student.create( {studentName: "Poby", campusId: 2} )
 	Student.create( {studentName: "Lionel", campusId: 2} )
 })
+
+apiRouter.get('/campusstudents/:campusid', (req, res, next) => {
+	Student.findAll( {where: {campusId: req.params.campusid} } )
+	.then(data => res.send(data) )
+	.catch(next);
+});
+
+apiRouter.post('/addstudent', (req, res, next) => {
+	console.log('uuuuuuuuuuuuuuuu', req.body)
+	Student.create( req.body )
+	.then( response => res.send(response))
+	.catch();
+});
 // You can put all routes in this file; HOWEVER, this file should almost be like a table of contents for the routers you create
 
 module.exports = apiRouter;

@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 
 const SHOW_ALL_CAMPUS = 'SHOW_ALL_CAMPUS'
 const SHOW_ALL_STUDENTS = 'SHOW_ALL_STUDENTS'
+const SHOW_STUDENTS_BY_CAMPUS = 'SHOW_STUDENTS_BY_CAMPUS'
 
 const initialState = {
   campuses: [],
