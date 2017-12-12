@@ -11,7 +11,9 @@ apiRouter.get('/hello', (req, res) => res.send({hello: 'world'}))
 
 apiRouter.get('/campuses', (req, res, next) => {
 	Campus.findAll()
-	.then( campuses => res.send(campuses) )
+	.then( campuses => {
+		res.send(campuses)
+	} )
 	.catch(next)
 } );
 
@@ -22,11 +24,18 @@ apiRouter.get('/students', (req, res, next) => {
 	.catch();
 });
 
-apiRouter.get('/deletestudent/:studentid', (req, res, next) => {
+apiRouter.delete('/deletestudent/:studentid', (req, res, next) => {
 	var studentid = Number(req.params.studentid);
 	Student.destroy({ where: {id: studentid} })
 	.then(status => res.send({status: 'DONT KNOW!!!!'}))
 	.catch(err => console.log(err) )
+});
+
+apiRouter.delete('/deletecampus/:campusid', (req, res, next) => {
+	var campusid = Number(req.params.campusid);
+	Campus.destroy({ where: {id: campusid} })
+	.then(status => res.send({status: 'DONT KNOW!!!!'}))
+	.catch(err => console.log('delete campus errorrrrrrrrrrrrrr', err) )
 });
 
 apiRouter.get('cu', (req, res, next) => {
@@ -45,11 +54,32 @@ apiRouter.get('/campusstudents/:campusid', (req, res, next) => {
 });
 
 apiRouter.post('/addstudent', (req, res, next) => {
-	console.log('uuuuuuuuuuuuuuuu', req.body)
 	Student.create( req.body )
 	.then( response => res.send(response))
 	.catch();
 });
+
+apiRouter.post('/addcampus', (req, res, next) => {
+	Campus.create( req.body )
+	.then(response => res.send(response) )
+	.catch(err => console.log('add campus errorrrrrrrrrrr', err) );
+} );
+
+apiRouter.put('/updatestudent/:studentid', (req, res, next) => {
+	Student.findById(req.params.studentid)
+	.then(student => student.update(req.body) )
+	.then(result => res.send(result) )
+	.catch(err => console.log('updatestudent errorrrrrrrrr', err) )
+});
+
+apiRouter.put('/updatecampus/:campusid', (req, res, next) => {
+	console.log('jjjjjjjjjjjjjjjjjjjjj')
+	Campus.findById(req.params.campusid)
+	.then(campus => campus.update(req.body) )
+	.then(result => res.send(result) )
+	.catch(err => console.log('updatecampus errorrrrrrrrr', err) )
+});
+
 // You can put all routes in this file; HOWEVER, this file should almost be like a table of contents for the routers you create
 
 module.exports = apiRouter;

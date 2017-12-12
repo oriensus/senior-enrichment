@@ -11,16 +11,22 @@ const db = require('../index');
 // This is also probably a good place for you to set up your associations
 
 const Campus = db.define('campus', {
-	campusName: { type: Sequelize.STRING, allowNull: false, unique: true }
+	campusName: { type: Sequelize.STRING, allowNull: false, unique: true },
+	imageUrl: Sequelize.STRING,
+	description: Sequelize.TEXT
 });
 
 const Student = db.define('student', {
-	studentName: { type: Sequelize.STRING, allowNull: false},
-	campusId: {type: Sequelize.INTEGER, allowNull: false}
+	firstName: { type: Sequelize.STRING, allowNull: false},
+	lastName: { type: Sequelize.STRING, allowNull: false},
+	email: { type: Sequelize.STRING},
+	gpa: Sequelize.FLOAT
+	////campusId: {type: Sequelize.INTEGER, allowNull: false}
 });
 
 
 Student.belongsTo(Campus);
+Campus.hasMany(Student);
 
 // Campus.create({ campusName: "Titan" });
 // Campus.create( { campusName: "Europa" } );

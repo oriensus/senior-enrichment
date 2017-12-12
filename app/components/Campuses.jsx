@@ -45,6 +45,7 @@ export default class Campuses extends Component{
                 <ul className='campus-list'>
                 {camps}
                 </ul>
+                <button onClick={() => this.props.history.push('/addcampus')} >Add Campus</button>
             </div>
         )
     }

@@ -5,7 +5,10 @@ import Students from './Students';
 import Navbar from './Navbar'
 import CampusStudents from './CampusStudents'
 import AddStudent from './AddStudent'
-//<Route path='/students' component={Students} />
+import SingleStudent from './SingleStudent'
+import AddCampus from './AddCampus'
+import EditCampus from './EditCampus'
+
 export default class MainPage extends Component {
     render(){
         return(
@@ -16,6 +19,9 @@ export default class MainPage extends Component {
                     <Route path='/students' component={Students} />
                     <Route path='/campusstudents' component={CampusStudents} />
                     <Route path='/addstudents' component={AddStudent} />
+                    <Route path='/addcampus' component={AddCampus} />
+                    <Route path='/singlestudent/:studentid' component={SingleStudent} />
+                    <Route path='/editcampus/:campusid' component={EditCampus} />
                     <Redirect to='/campuses' />
                 </Switch>
             </div>

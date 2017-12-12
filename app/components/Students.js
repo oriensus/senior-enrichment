@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import store from '../store'
 import axios from 'axios'
 import {showAllStudents} from '../reducers'
+import {NavLink} from 'react-router-dom'
 
 export default class Students extends Component {
     constructor(){
@@ -27,9 +28,10 @@ export default class Students extends Component {
     }
 
     handleDeleteStudent(studentId){
-        axios('/api/deletestudent/' + studentId)
+        axios.delete('/api/deletestudent/' + studentId)
         .then( () => {return axios.get('/api/students')} )
         .then( response => store.dispatch( showAllStudents(response.data) ) )
+        .then(() => this.props.history.push('/students') )
         .catch();
     }
 
@@ -37,10 +39,12 @@ export default class Students extends Component {
         
         var students = store.getState().students.map(student => {
             return(
+                <NavLink key={student.id} to={'/singlestudent/' + student.id}>
                 <li key={student.id}>
-                    <span>{student.id} , {student.studentName} , {student.campus.campusName}</span>
+                    <span>{student.id} , {student.firstName} {student.lastName}, {student.campus.campusName}</span>
                     <span className="badge"><button onClick={ () => this.handleDeleteStudent(student.id) }>X</button></span>
                 </li>
+                </NavLink>
             )
             });
 
