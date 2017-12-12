@@ -4,10 +4,12 @@ import { combineReducers } from 'redux'
 const SHOW_ALL_CAMPUS = 'SHOW_ALL_CAMPUS'
 const SHOW_ALL_STUDENTS = 'SHOW_ALL_STUDENTS'
 const SHOW_STUDENTS_BY_CAMPUS = 'SHOW_STUDENTS_BY_CAMPUS'
+const SHOW_CAMPUS_STUDENTS = 'SHOW_CAMPUS_STUDENTS'
 
 const initialState = {
   campuses: [],
-  students: []
+  students: [],
+  campusStudents: []
 }
 
 export const showAllCampus = function(campuses){
@@ -24,12 +26,21 @@ export const showAllStudents = function(students){
   }
 }
 
+export const showCampusStudents = function(campusStudents){
+  return {
+    type: SHOW_CAMPUS_STUDENTS,
+    campusStudents
+  }
+}
+
 export const rootReducer = function(state = initialState, action) {
   switch(action.type) {
     case 'SHOW_ALL_CAMPUS':
         return Object.assign({}, state, {campuses: action.campuses});
     case 'SHOW_ALL_STUDENTS':
         return Object.assign({}, state, {students: action.students});
+    case 'SHOW_CAMPUS_STUDENTS':
+        return Object.assign({}, state, {campusStudents: action.campusStudents});
     default: return state
   }
 };

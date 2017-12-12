@@ -73,11 +73,18 @@ apiRouter.put('/updatestudent/:studentid', (req, res, next) => {
 });
 
 apiRouter.put('/updatecampus/:campusid', (req, res, next) => {
-	console.log('jjjjjjjjjjjjjjjjjjjjj')
 	Campus.findById(req.params.campusid)
 	.then(campus => campus.update(req.body) )
 	.then(result => res.send(result) )
 	.catch(err => console.log('updatecampus errorrrrrrrrr', err) )
+});
+
+apiRouter.put('/addstudenttocampus/:studentid/:campusid', (req, res, next) => {
+
+	Student.findById(req.params.studentid)
+	.then(student => student.update(req.body) )
+	.then(result => res.send(result) )
+	.catch(err => console.log('addstudenttocampus errorrrrrrrrr', err) )
 });
 
 // You can put all routes in this file; HOWEVER, this file should almost be like a table of contents for the routers you create
